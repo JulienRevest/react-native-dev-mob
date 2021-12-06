@@ -21,6 +21,11 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -62,7 +67,17 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="CounterOne"
       screenOptions={{
+        tabBarStyle: {
+          position: 'absolute',
+          top: 50,
+        },
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarIcon: ({ focused }) => (
+          <FontAwesome name={focused ? 'link' : undefined } size={24} color={Colors[colorScheme].tint} />
+        ),
+        gestureEnabled: true,
+        cardOverlayEnabled: true,
+        ...TransitionPresets.DefaultTransition,
       }}>
       <BottomTab.Screen
         name="CounterOne"

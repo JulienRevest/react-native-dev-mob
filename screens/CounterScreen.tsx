@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, Button, ButtonProps } from 'react-native';
+import { StyleSheet, Text, Button, ButtonProps, ColorSchemeName } from 'react-native';
 
 function CountButton({title, onPress}: ButtonProps) {
     return <Button  
@@ -29,16 +29,22 @@ const useCount = (initialValue: number): [number, (value: number) => void] => {
   return [count, handleChangeCount]
 }
 
+let colorScheme: ColorSchemeName;
+
 export default function CounterScreen() {
   const [count, handleChangeCount] = useCount(0);
 
     return (
         <>
-            <Text>Bonjour {count}</Text>
+            <Text style={styles.text}>Bonjour {count}</Text>
             <CountButton title="+" onPress={() => handleChangeCount(1)}></CountButton>
             <CountButton title="-" onPress={() => handleChangeCount(-1)}></CountButton>
         </>
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    color: colorScheme === 'dark' ? 'white' : 'black',
+  }
+});
